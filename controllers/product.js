@@ -10,7 +10,7 @@ const ProductController = {
 	},
 	find: async (req, res) => {
 		try {
-			res.send(await ProductModel.find({ _id: req.query.id }))
+			res.send(await ProductModel.find({ _id: req.params.id }))
 		} catch (err) {
 			res.status(500).json(err)
 		}
@@ -25,7 +25,7 @@ const ProductController = {
 	update: async (req, res) => {
 		try {
 			const updatedProduct = await ProductModel.findOneAndUpdate(
-				{ _id: req.body.id },
+				{ _id: req.params.id },
 				req.body,
                 { new: true }
 			)
