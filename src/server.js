@@ -38,5 +38,5 @@ app.use('/products', routes.products)
 
 mongoose.connection.once('open', () => {
 	console.log('Connected to MongoDB')
-	app.listen(process.env.PORT || 3002, () => console.log('Server listening at 3002 port'))
 })
+app.listen(process.env.PORT || 3002, () => console.log('Server listening at 3002 port'))
