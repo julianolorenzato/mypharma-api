@@ -22,7 +22,7 @@ const UserController = {
 
 		try {
 			if (await UserModel.findOne({ email }))
-				return res.status(400).json({ error: 'User already exists' })
+				return res.status(400).json('Usuário já existe')
 
 			const user = await UserModel.create({
 				name,
@@ -37,7 +37,7 @@ const UserController = {
 				token: generateToken({ id: user.id })
 			})
 		} catch (err) {
-			res.status(500).json({ error: 'Registration failed' })
+			res.status(500).json('Falha no registro')
 		}
 	},
 	login: async (req, res) => {
@@ -45,12 +45,10 @@ const UserController = {
 
 		try {
 			const user = await UserModel.findOne({ email }).select('+password')
-			if (!user)
-				return res.status(400).json({ error: "User's email not found" })
+			if (!user) return res.status(400).json('Email não encontrado')
 
 			const validated = await bcrypt.compare(password, user.password)
-			if (!validated)
-				return res.status(400).json({ error: 'Invalid password' })
+			if (!validated) return res.status(400).json('Senha inválida')
 
 			user.password = undefined
 
@@ -59,7 +57,7 @@ const UserController = {
 				token: generateToken({ id: user.id })
 			})
 		} catch (err) {
-			res.status(500).json({ error: 'Authentication failed' })
+			res.status(500).json('Falha na autenticação')
 		}
 	}
 }
