@@ -22,7 +22,7 @@ app.use(express.json())
 app.use(cors())
 
 const log = fs.createWriteStream(
-	path.join(__dirname, './logs', 'express.log'),
+	path.join(process.env.PWD, './logs', 'express.log'),
 	{ flags: 'a' }
 )
 
