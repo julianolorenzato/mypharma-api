@@ -5,21 +5,21 @@ const ProductController = {
 		try {
 			res.send(await ProductModel.find().populate('category brand'))
 		} catch (err) {
-			res.status(500).json(err)
+			res.status(500).json(err.message)
 		}
 	},
 	find: async (req, res) => {
 		try {
 			res.send(await ProductModel.find({ _id: req.params.id }))
 		} catch (err) {
-			res.status(500).json(err)
+			res.status(500).json(err.message)
 		}
 	},
 	create: async (req, res) => {
 		try {
 			res.send(await ProductModel.create(req.body))
 		} catch (err) {
-			res.status(500).json(err)
+			res.status(500).json(err.message)
 		}
 	},
 	update: async (req, res) => {
@@ -31,7 +31,17 @@ const ProductController = {
 			)
 			res.send(updatedProduct)
 		} catch (err) {
-			res.status(500).json(err)
+			res.status(404).json('Não encontramos este produto')
+		}
+	},
+	remove: async (req, res) => {
+		try {
+			const product = await ProductModel.findOneAndDelete({
+				_id: req.params.id
+			})
+			res.send(`${product.name} removed`)
+		} catch(err) {
+			res.status(404).json('Não encontramos este produto')
 		}
 	}
 }

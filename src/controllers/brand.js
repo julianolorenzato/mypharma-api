@@ -10,14 +10,14 @@ const BrandController = {
 			}
 			res.send(await BrandModel.find())
 		} catch (err) {
-			res.status(500).json(err)
+			res.status(500).json(err.message)
 		}
 	},
 	find: async (req, res) => {
 		try {
 			res.send(await BrandModel.findOne({ name: req.params.slug }))
 		} catch (err) {
-			res.status(500).json(err)
+			res.status(500).json(err.message)
 		}
 	},
 	create: async (req, res) => {
@@ -26,7 +26,7 @@ const BrandController = {
 			await newBrand.save()
 			res.send(newBrand)
 		} catch (err) {
-			res.status(500).json(err)
+			res.status(500).json(err.message)
 		}
 	},
 	update: async (req, res) => {
@@ -48,7 +48,7 @@ const BrandController = {
 			})
 			res.send(`${brand.name} removed`)
 		} catch (err) {
-			res.status(500).json(err)
+			res.status(404).json('Não encontramos esta marca')
 		}
 	}
 }

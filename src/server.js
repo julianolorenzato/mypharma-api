@@ -1,6 +1,8 @@
 const express = require('express')
-const morgan = require('morgan')
+const morganBody = require('morgan-body')
 const cors = require('cors')
+const fs = require('fs')
+const path = require('path')
 const mongoose = require('mongoose')
 const connectDB = require('./config/dbConnection')
 const routes = {
@@ -14,11 +16,20 @@ require('dotenv').config()
 connectDB()
 const app = express()
 
-app.use(morgan('dev'))
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 app.use(cors())
+
+const log = fs.createWriteStream(
+	path.join(__dirname, './logs', 'express.log'),
+	{ flags: 'a' }
+)
+
+morganBody(app, {
+	noColors: true,
+	stream: log
+})
 
 app.use('/auth', routes.auth)
 app.use('/brands', routes.brands)

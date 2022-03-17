@@ -11,14 +11,14 @@ const CategoryController = {
 			}
 			res.send(await CategoryModel.find())
 		} catch (err) {
-			res.status(500).json(err)
+			res.status(500).json(err.message)
 		}
 	},
 	find: async (req, res) => {
 		try {
 			res.send(await CategoryModel.findOne({ name: req.params.slug }))
 		} catch (err) {
-			res.status(500).json(err)
+			res.status(500).json(err.message)
 		}
 	},
 	create: async (req, res) => {
@@ -27,7 +27,7 @@ const CategoryController = {
 			await newCategory.save()
 			res.send(newCategory)
 		} catch (err) {
-			res.status(500).json(err)
+			res.status(500).json(err.message)
 		}
 	},
 	update: async (req, res) => {
@@ -39,7 +39,7 @@ const CategoryController = {
 			)
 			res.status(200).json(updatedCategory)
 		} catch (err) {
-			res.status(404).json('Não encontramos esta marca')
+			res.status(404).json('Não encontramos esta categoria')
 		}
 	},
 	remove: async (req, res) => {
@@ -49,7 +49,7 @@ const CategoryController = {
 			})
 			res.send(`${category.name} removed`)
 		} catch (err) {
-			res.status(500).json(err)
+			res.status(404).json('Não encontramos esta categoria')
 		}
 	}
 }
