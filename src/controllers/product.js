@@ -39,7 +39,7 @@ const ProductController = {
 			const product = await ProductModel.findOneAndDelete({
 				_id: req.params.id
 			})
-			res.send(`${product.name} removed`)
+			res.send(product._id)
 		} catch(err) {
 			res.status(404).json('Não encontramos este produto')
 		}

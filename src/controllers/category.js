@@ -47,7 +47,7 @@ const CategoryController = {
 			const category = await CategoryModel.findOneAndDelete({
 				name: req.params.slug
 			})
-			res.send(`${category.name} removed`)
+			res.send(category.name)
 		} catch (err) {
 			res.status(404).json('Não encontramos esta categoria')
 		}
