@@ -46,7 +46,7 @@ const BrandController = {
 			const brand = await BrandModel.findOneAndDelete({
 				name: req.params.slug
 			})
-			res.send(`${brand.name} removed`)
+			res.send(brand.name)
 		} catch (err) {
 			res.status(404).json('Não encontramos esta marca')
 		}
